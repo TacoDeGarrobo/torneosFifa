@@ -42,4 +42,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    /**
+     * Get the torneos for the user.
+     */
+    public function torneos()
+    {
+        return $this->hasMany(Torneo::class);
+    }
+
+    /**
+     * The torneos that belong to the user.
+     */
+    public function torneosParticipados()
+    {
+        return $this->belongsToMany(Torneo::class);
+
+    }
+    
 }
