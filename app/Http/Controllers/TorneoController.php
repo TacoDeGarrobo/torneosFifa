@@ -29,15 +29,55 @@ class TorneoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'tipo' => 'required|string|in:liga,eliminatoria,liga y eliminatoria,UCL',
+            'max_equipos' => 'required|integer|min:2|max:32',
+        ]);
+
+        $torneo = new Torneo();
+        $torneo->nombre = $request->nombre;
+        $torneo->user_id = auth()->id();
+        $torneo->tipo = $request->tipo;
+        $torneo->max_equipos = $request->max_equipos;
+        $torneo->equipos_participantes = 0; // Inicialmente no hay equipos inscritos
+        $torneo->save();
+
+        return redirect()->route('torneos.index')->with('success', 'Torneo creado exitosamente.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function showForm()
     {
-        //
+        $TiposTorneo = [
+            'liga' => 'Liga',
+            'eliminatoria' => 'Eliminatoria',
+            'liga_y_eliminatoria' => 'Liga y Eliminatoria',
+            'UCL' => 'UCL',
+        ];
+        return view('torneos.create', compact('TiposTorneo'));
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function getMaxEquipos(Request $request)
+    {
+        $tipoId = $request->input('tipo');
+        $cantidad=[];
+        if ($tipoId == 'liga') {
+            $cantidad = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32];
+        } elseif ($tipoId == 'eliminatoria') {
+            $cantidad = [4, 8, 16, 32];
+        } elseif ($tipoId == 'liga y eliminatoria') {
+            $cantidad = [4, 6, 8, 10, 12, 14, 16];
+        } elseif ($tipoId == 'UCL') {
+            $cantidad = [32];
+        }
+
+        return response()->json([$cantidad]);
     }
 
     /**

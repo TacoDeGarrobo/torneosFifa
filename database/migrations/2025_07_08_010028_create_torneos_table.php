@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('tipo'); // tipo de torneo: liga, eliminatoria, liga y eliminatoria o UCL
+            $table->string('estado')->default('activo'); // activo, inactivo, finalizado
+            $table->integer('max_equipos')->default(16); // Número máximo de equipos permitidos
+            $table->integer('equipos_participantes')->default(0); // Equipos inscritos actualmente
             $table->timestamps();
         });
     }
