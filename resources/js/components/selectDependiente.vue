@@ -34,7 +34,7 @@ export default {
     setup(props) {
         const selectedTipo = ref('');
         const selectedMaxEquipos = ref('');
-        const TiposTorneo = ref([]);
+        //const TiposTorneo = ref([]);
         const max_equipos = ref([]);
 
         onMounted(() => {
@@ -42,12 +42,12 @@ export default {
                 TiposTorneo.value = props.initialTiposTorneo.map(tipo => ({ id: tipo.id, name: tipo.name }));
             } else {
                 // Simulación de datos si no se pasan por props
-                TiposTorneo.value = [
-                    { id: 1, name: 'Liga' },
-                    { id: 2, name: 'Eliminatoria' },
-                    { id: 3, name: 'Liga y Eliminatoria' },
-                    { id: 4, name: 'UCL' }, // Puedes agregar más tipos según sea necesario
-                ];
+               // TiposTorneo.value = [
+                 //   { id: 1, name: 'Liga' },
+                   // { id: 2, name: 'Eliminatoria' },
+                   // { id: 3, name: 'Liga y Eliminatoria' },
+                   // { id: 4, name: 'UCL' }, // Puedes agregar más tipos según sea necesario
+                //];
             }
         });
 
@@ -57,7 +57,7 @@ export default {
 
             if (selectedTipo.value) {
                 try {
-                    const response = await fetch(`/get-max-equipos?tipo_id=${selectedTipo.value}`);
+                    const response = await fetch(`/getMaxEquipos?tipo_id=${selectedTipo.value}`);
                     const data = await response.json();
                     max_equipos.value = data;
                 } catch (error) {

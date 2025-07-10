@@ -58,11 +58,11 @@ class TorneoController extends Controller
     {
         $tipoId = $request->input('tipo_id');
         $cantidad=[];
-        if ($tipoId == 'liga') {
+        if ($tipoId == 'Liga') {
             $cantidad = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32];
-        } elseif ($tipoId == 'eliminatoria') {
+        } elseif ($tipoId == 'Eliminatoria') {
             $cantidad = [4, 8, 16, 32];
-        } elseif ($tipoId == 'liga y eliminatoria') {
+        } elseif ($tipoId == 'Liga y Eliminatoria') {
             $cantidad = [4, 6, 8, 10, 12, 14, 16];
         } elseif ($tipoId == 'UCL') {
             $cantidad = [32];
