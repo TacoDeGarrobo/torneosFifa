@@ -21,7 +21,13 @@ class TorneoController extends Controller
      */
     public function create()
     {
-        return view('torneos.create');
+         $TiposTorneo = collect([
+            ['id' => 1, 'name' => 'Liga'],
+            ['id' => 2, 'name' => 'Eliminatoria'],
+            ['id' => 3, 'name' => 'Liga y Eliminatoria'],
+            ['id' => 4, 'name' => 'UCL'],
+        ]);
+        return view('torneos.create', compact('TiposTorneo'));
     }
 
     /**
@@ -45,27 +51,12 @@ class TorneoController extends Controller
 
         return redirect()->route('torneos.index')->with('success', 'Torneo creado exitosamente.');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function showForm()
-    {
-        $TiposTorneo = [
-            'liga' => 'Liga',
-            'eliminatoria' => 'Eliminatoria',
-            'liga_y_eliminatoria' => 'Liga y Eliminatoria',
-            'UCL' => 'UCL',
-        ];
-        return view('torneos.create', compact('TiposTorneo'));
-    }
-
     /**
      * Display the specified resource.
      */
     public function getMaxEquipos(Request $request)
     {
-        $tipoId = $request->input('tipo');
+        $tipoId = $request->input('tipo_id');
         $cantidad=[];
         if ($tipoId == 'liga') {
             $cantidad = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32];
@@ -76,8 +67,11 @@ class TorneoController extends Controller
         } elseif ($tipoId == 'UCL') {
             $cantidad = [32];
         }
+        $resultado = collect($cantidad)->map(function ($item) {
+            return ['id' => $item, 'name' => $item];
+        });
 
-        return response()->json([$cantidad]);
+        return response()->json($resultado);
     }
 
     /**

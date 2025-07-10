@@ -17,34 +17,8 @@
             </div>
 
             <div class="mb-4">
-                <x-input-label for="tipo" :value="__('Modelo de Torneo:')"/>
-                <x-select-layout id="tipo" name="tipo" class="mt-1 block w-full" :value="old('tipo')" required>
-                    <option value="" selected>Selecciona el modelo de torneo</option>
-                    <option value="Liga">
-                        Liga
-                    </option>
-                    <option value="Eliminatoria">
-                        Eliminatoria
-                    </option>
-                    <option value="Liga_y_Eliminatoria">
-                        Liga y Eliminatoria
-                    </option>
-                    <option value="UCL">
-                        UCL
-                    </option>
-                </x-select-layout>
-                <x-input-error :messages="$errors->get('tipo')" class="mt-2" />
-            </div>
-
-            <div class="mb-4">
-                <x-input-label for="max_equipos" :value="__('Cantidad de equipos:')"/>
-                <x-select-layout id="max_equipos" name="max_equipos" class="mt-1 block w-full" :value="old('max_equipos')" required placeholder="Selecciona la cantidad de equipos">
-                    <option value="4">4</option>
-                    <option value="8">8</option>
-                    <option value="16">16</option>
-                    <option value="32">32</option>
-                </x-select-layout>
-                <x-input-error :messages="$errors->get('descripcion')" class="mt-2" />
+                <select-dependiente 
+                    :initialTiposTorneo='@json($TiposTorneo)'></select-dependiente>
             </div>
 
             <div class="flex items-center justify-end mt-4">

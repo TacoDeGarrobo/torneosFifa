@@ -14,6 +14,7 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/torneos', [TorneoController::class, 'index'])->name('torneos.index');
     Route::get('/torneos/create', [TorneoController::class, 'create'])->name('torneos.create');
+    Route::get('/torneos/getMaxEquipos', [TorneoController::class, 'getMaxEquipos'])->name('torneos.getMaxEquipos');
     Route::post('/torneos', [TorneoController::class, 'store'])->name('torneos.store');
     Route::get('/torneos/{torneo}', [TorneoController::class, 'show'])->name('torneos.show');
     Route::get('/torneos/{torneo}/edit', [TorneoController::class, 'edit'])->name('torneos.edit');
