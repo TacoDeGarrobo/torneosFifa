@@ -16,9 +16,10 @@
                 <x-input-error :messages="$errors->get('nombre')" class="mt-2" />
             </div>
 
-            <div class="mb-4">
+            <div class="mb-4" id="vue-app">
                 <select-dependiente 
-                    :initialTiposTorneo='@json($TiposTorneo)'></select-dependiente>
+                    :initial-tipos-torneo='@json($TiposTorneo)'>
+                </select-dependiente>
             </div>
 
             <div class="flex items-center justify-end mt-4">

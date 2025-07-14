@@ -8,8 +8,11 @@ window.Alpine = Alpine;
 Alpine.start();
 
 import { createApp } from 'vue';
-const app = createApp({});
 import selectDependiente from './components/selectDependiente.vue';
+const app = createApp({});
 app.component('select-dependiente', selectDependiente);
 
-app.mount('#app');
+const vueRoot = document.getElementById('vue-app');
+if (vueRoot) {
+    app.mount(vueRoot);
+}

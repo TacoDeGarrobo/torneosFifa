@@ -21,12 +21,14 @@ class TorneoController extends Controller
      */
     public function create()
     {
-         $TiposTorneo = collect([
+         $TiposTorneoData = [
             ['id' => 1, 'name' => 'Liga'],
             ['id' => 2, 'name' => 'Eliminatoria'],
             ['id' => 3, 'name' => 'Liga y Eliminatoria'],
             ['id' => 4, 'name' => 'UCL'],
-        ]);
+        ];
+        $TiposDeTorneoCollection = collect($TiposTorneoData);
+        $TiposTorneo = $TiposDeTorneoCollection->toArray();
         return view('torneos.create', compact('TiposTorneo'));
     }
 
@@ -58,13 +60,13 @@ class TorneoController extends Controller
     {
         $tipoId = $request->input('tipo_id');
         $cantidad=[];
-        if ($tipoId == 'Liga') {
+        if ($tipoId == 1) {
             $cantidad = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32];
-        } elseif ($tipoId == 'Eliminatoria') {
+        } elseif ($tipoId == 2) {
             $cantidad = [4, 8, 16, 32];
-        } elseif ($tipoId == 'Liga y Eliminatoria') {
+        } elseif ($tipoId == 3) {
             $cantidad = [4, 6, 8, 10, 12, 14, 16];
-        } elseif ($tipoId == 'UCL') {
+        } elseif ($tipoId == 4) {
             $cantidad = [32];
         }
         $resultado = collect($cantidad)->map(function ($item) {
